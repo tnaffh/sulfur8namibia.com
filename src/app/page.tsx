@@ -1,101 +1,70 @@
-import Image from "next/image";
+import React from "react";
+import SectionHowItWork from "@/components/SectionHowItWork/SectionHowItWork";
+import BackgroundSection from "@/components/BackgroundSection/BackgroundSection";
+import SectionPromo1 from "@/components/SectionPromo1";
+import { SectionHero } from "@/features/heros/SectionHero";
+import SectionSliderLargeProduct from "@/components/SectionSliderLargeProduct";
+import SectionSliderProductCard from "@/components/SectionSliderProductCard";
+import DiscoverMoreSlider from "@/components/DiscoverMoreSlider";
+import SectionGridMoreExplore from "@/components/SectionGridMoreExplore/SectionGridMoreExplore";
+import SectionPromo2 from "@/components/SectionPromo2";
+import SectionSliderCategories from "@/components/SectionSliderCategories/SectionSliderCategories";
+import SectionPromo3 from "@/components/SectionPromo3";
+import SectionClientSay from "@/components/SectionClientSay/SectionClientSay";
+import Heading from "@/components/Heading/Heading";
+import ButtonSecondary from "@/shared/Button/ButtonSecondary";
+import { PRODUCTS, SPORT_PRODUCTS } from "@/data/data";
+import SectionGridFeatureItems from "@/components/SectionGridFeatureItems";
+import SectionMagazine5 from "@/app/blog/SectionMagazine5";
 
-export default function Home() {
+function PageHome() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div className="nc-PageHome relative overflow-hidden">
+      <SectionHero />
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      <div className="mt-24 lg:mt-32">
+        <DiscoverMoreSlider />
+      </div>
+
+      <div className="container relative space-y-24 my-24 lg:space-y-32 lg:my-32">
+        <SectionSliderProductCard data={[PRODUCTS[4], SPORT_PRODUCTS[5], PRODUCTS[7], SPORT_PRODUCTS[1], PRODUCTS[6]]} />
+
+        <div className="py-24 lg:py-32 border-t border-b border-slate-200 dark:border-slate-700">
+          <SectionHowItWork />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        <SectionPromo1 />
+
+        <div className="relative py-24 lg:py-32">
+          <BackgroundSection />
+          <SectionGridMoreExplore />
+        </div>
+
+        <SectionSliderProductCard heading="Best Sellers" subHeading="Best selling of the month" />
+
+        <SectionPromo2 />
+
+        <SectionSliderLargeProduct cardStyle="style2" />
+
+        <SectionSliderCategories />
+
+        <SectionPromo3 />
+
+        <SectionGridFeatureItems />
+
+        <div className="relative py-24 lg:py-32">
+          <BackgroundSection />
+          <div>
+            <Heading rightDescText="From the Ciseco blog">The latest news</Heading>
+            <SectionMagazine5 />
+            <div className="flex mt-16 justify-center">
+              <ButtonSecondary>Show all blog articles</ButtonSecondary>
+            </div>
+          </div>
+        </div>
+        <SectionClientSay />
+      </div>
     </div>
   );
 }
+
+export default PageHome;
