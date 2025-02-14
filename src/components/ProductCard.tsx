@@ -4,7 +4,6 @@ import React, { FC, useState } from "react";
 import LikeButton from "./LikeButton";
 import Prices from "./Prices";
 import { ArrowsPointingOutIcon } from "@heroicons/react/24/outline";
-import { Product, PRODUCTS } from "@/data/data";
 import { StarIcon } from "@heroicons/react/24/solid";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
@@ -17,31 +16,17 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import NcImage from "@/shared/NcImage/NcImage";
+import { Sulfur8Product } from "@/app/products/types";
+import { SULFUR8_PRODUCTS } from "@/app/products/data";
 
 export interface ProductCardProps {
   className?: string;
-  data?: Product;
+  data?: Sulfur8Product;
   isLiked?: boolean;
 }
 
-const ProductCard: FC<ProductCardProps> = ({
-  className = "",
-  data = PRODUCTS[0],
-  isLiked,
-}) => {
-  const {
-    name,
-    price,
-    description,
-    variants,
-    variantType,
-    status,
-    image,
-    rating,
-    id,
-    numberOfReviews,
-    sizes,
-  } = data;
+const ProductCard: FC<ProductCardProps> = ({ className = "", data = SULFUR8_PRODUCTS[0], isLiked }) => {
+  const { name, price, description, variants, variantType, status, image, rating, id, numberOfReviews, sizes, wholesalePrice } = data;
 
   const [variantActive, setVariantActive] = useState(0);
   const [showModalQuickView, setShowModalQuickView] = useState(false);
@@ -62,9 +47,7 @@ const ProductCard: FC<ProductCardProps> = ({
           leaveFrom="opacity-100 translate-x-0"
           leaveTo="opacity-0 translate-x-20"
         >
-          <p className="block text-base font-semibold leading-none">
-            Added to cart!
-          </p>
+          <p className="block text-base font-semibold leading-none">Added to cart!</p>
           <div className="border-t border-slate-200 dark:border-slate-700 my-4" />
           {renderProductCartOnNotify({ size })}
         </Transition>
@@ -81,13 +64,7 @@ const ProductCard: FC<ProductCardProps> = ({
     return (
       <div className="flex ">
         <div className="h-24 w-20 flex-shrink-0 overflow-hidden rounded-xl bg-slate-100">
-          <Image
-            width={80}
-            height={96}
-            src={image}
-            alt={name}
-            className="absolute object-cover object-center"
-          />
+          <Image width={80} height={96} src={image} alt={name} className="absolute object-cover object-center" />
         </div>
 
         <div className="ms-4 flex flex-1 flex-col">
@@ -96,9 +73,7 @@ const ProductCard: FC<ProductCardProps> = ({
               <div>
                 <h3 className="text-base font-medium ">{name}</h3>
                 <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
-                  <span>
-                    {variants ? variants[variantActive].name : `Natural`}
-                  </span>
+                  <span>{variants ? variants[variantActive].name : `Natural`}</span>
                   <span className="mx-2 border-s border-slate-200 dark:border-slate-700 h-4"></span>
                   <span>{size || "XL"}</span>
                 </p>
@@ -165,15 +140,11 @@ const ProductCard: FC<ProductCardProps> = ({
               key={index}
               onClick={() => setVariantActive(index)}
               className={`relative w-6 h-6 rounded-full overflow-hidden z-10 border cursor-pointer ${
-                variantActive === index
-                  ? getBorderClass(variant.color)
-                  : "border-transparent"
+                variantActive === index ? getBorderClass(variant.color) : "border-transparent"
               }`}
               title={variant.name}
             >
-              <div
-                className={`absolute inset-0.5 rounded-full z-0 ${variant.color}`}
-              ></div>
+              <div className={`absolute inset-0.5 rounded-full z-0 ${variant.color}`}></div>
             </div>
           ))}
         </div>
@@ -187,9 +158,7 @@ const ProductCard: FC<ProductCardProps> = ({
             key={index}
             onClick={() => setVariantActive(index)}
             className={`relative w-11 h-6 rounded-full overflow-hidden z-10 border cursor-pointer ${
-              variantActive === index
-                ? "border-black dark:border-slate-300"
-                : "border-transparent"
+              variantActive === index ? "border-black dark:border-slate-300" : "border-transparent"
             }`}
             title={variant.name}
           >
@@ -216,12 +185,7 @@ const ProductCard: FC<ProductCardProps> = ({
   const renderGroupButtons = () => {
     return (
       <div className="absolute bottom-0 group-hover:bottom-4 inset-x-1 flex justify-center opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
-        <ButtonPrimary
-          className="shadow-lg"
-          fontSize="text-xs"
-          sizeClass="py-2 px-4"
-          onClick={() => notifyAddTocart({ size: "XL" })}
-        >
+        <ButtonPrimary className="shadow-lg" fontSize="text-xs" sizeClass="py-2 px-4" onClick={() => notifyAddTocart({ size: "XL" })}>
           <BagIcon className="w-3.5 h-3.5 mb-0.5" />
           <span className="ms-1">Add to bag</span>
         </ButtonPrimary>
@@ -262,12 +226,10 @@ const ProductCard: FC<ProductCardProps> = ({
 
   return (
     <>
-      <div
-        className={`nc-ProductCard relative flex flex-col bg-transparent ${className}`}
-      >
+      <div className={`nc-ProductCard relative flex flex-col bg-transparent ${className}`}>
         <Link href={"/product-detail"} className="absolute inset-0"></Link>
 
-        <div className="relative flex-shrink-0 bg-slate-50 dark:bg-slate-300 rounded-3xl overflow-hidden z-1 group">
+        <div className="relative flex-shrink-0 bg-slate-50 dark:bg-slate-300 border border-neutral-200 rounded-3xl overflow-hidden z-1 group">
           <Link href={"/product-detail"} className="block">
             <NcImage
               containerClassName="flex aspect-w-11 aspect-h-12 w-full h-0"
@@ -286,16 +248,13 @@ const ProductCard: FC<ProductCardProps> = ({
         <div className="space-y-4 px-2.5 pt-5 pb-2.5">
           {renderVariants()}
           <div>
-            <h2 className="nc-ProductCard__title text-base font-semibold transition-colors">
-              {name}
-            </h2>
-            <p className={`text-sm text-slate-500 dark:text-slate-400 mt-1 `}>
-              {description}
-            </p>
+            <h2 className="nc-ProductCard__title text-base font-semibold transition-colors">{name}</h2>
+            <p className={`text-sm text-slate-500 dark:text-slate-400 mt-1 `}>{description}</p>
           </div>
 
           <div className="flex justify-between items-end ">
             <Prices price={price} />
+            {wholesalePrice && <Prices price={wholesalePrice} borderClassName="border-red-500" />}
             <div className="flex items-center mb-0.5">
               <StarIcon className="w-5 h-5 pb-[1px] text-amber-400" />
               <span className="text-sm ms-1 text-slate-500 dark:text-slate-400">
@@ -307,10 +266,7 @@ const ProductCard: FC<ProductCardProps> = ({
       </div>
 
       {/* QUICKVIEW */}
-      <ModalQuickView
-        show={showModalQuickView}
-        onCloseModalQuickView={() => setShowModalQuickView(false)}
-      />
+      <ModalQuickView show={showModalQuickView} onCloseModalQuickView={() => setShowModalQuickView(false)} />
     </>
   );
 };

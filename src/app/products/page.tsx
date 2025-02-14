@@ -4,8 +4,8 @@ import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import SectionSliderCollections from "@/components/SectionSliderLargeProduct";
 import SectionPromo1 from "@/components/SectionPromo1";
 import ProductCard from "@/components/ProductCard";
-import { PRODUCTS } from "@/data/data";
 import TabFilters from "@/components/TabFilters";
+import { SULFUR8_PRODUCTS } from "./data";
 
 const ProductsPage: FC = () => {
   return (
@@ -30,7 +30,7 @@ const ProductsPage: FC = () => {
 
             {/* LOOP ITEMS */}
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-10 mt-8 lg:mt-10">
-              {PRODUCTS.map((item, index) => (
+              {SULFUR8_PRODUCTS.map((item, index) => (
                 <ProductCard data={item} key={index} />
               ))}
             </div>

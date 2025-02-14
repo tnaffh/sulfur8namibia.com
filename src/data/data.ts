@@ -49,25 +49,6 @@ export interface Sulfur8Category {
   image: StaticImageData | string | null;
 }
 
-export interface Sulfur8Variant {
-  id: number;
-  name: string;
-  image: StaticImageData | string | null;
-}
-
-export interface Sulfur8Product {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-  image: StaticImageData | string | null;
-  link: string;
-  category: Sulfur8Category | null;
-  categories: Sulfur8Category[];
-  tags: string[];
-  variants: Sulfur8Variant[];
-}
-
 export const CATEGORIES: Sulfur8Category[] = [
   { id: 1, name: "All", image: null },
   { id: 2, name: "Anti-Dandruff", image: null },
@@ -80,33 +61,6 @@ export const CATEGORIES: Sulfur8Category[] = [
   { id: 9, name: "Scalp therapy", image: null },
   { id: 10, name: "Loc Twist & Braid", image: null },
   { id: 10, name: "Lotion", image: null },
-];
-
-export const SULFUR8_PRODUCTS: Sulfur8Product[] = [
-  {
-    id: 1,
-    name: "Medicated Kid’s Shampoo",
-    description: "Description 1",
-    price: 100,
-    image: productImgs[0],
-    link: "/product-detail/",
-    category: null,
-    categories: [],
-    tags: [],
-    variants: [],
-  },
-  {
-    id: 2,
-    name: "Aqua Blue Medicated Dandruff Shampoo",
-    description: "Description 1",
-    price: 100,
-    image: productImgs[0],
-    link: "/product-detail/",
-    category: null,
-    categories: [],
-    tags: [],
-    variants: [],
-  },
 ];
 
 const DEMO_VARIANTS: ProductVariant[] = [

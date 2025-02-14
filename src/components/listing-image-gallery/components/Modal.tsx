@@ -3,32 +3,38 @@
 import { Dialog } from "@headlessui/react";
 import { motion } from "framer-motion";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useRef, useState } from "react";
-import useKeypress from "react-use-keypress";
+import { useRef, useState, useEffect } from "react";
 import { getNewParam } from "../ListingImageGallery";
 import type { ListingGalleryImage } from "../utils/types";
 import SharedModal from "./SharedModal";
 import { Route } from "next";
+import { useKeyPress } from "react-use";
 
-export default function Modal({
-  images,
-  onClose,
-}: {
-  images: ListingGalleryImage[];
-  onClose?: () => void;
-}) {
-  let overlayRef = useRef<HTMLDivElement>(null);
+export default function Modal({ images, onClose }: { images: ListingGalleryImage[]; onClose?: () => void }) {
+  const overlayRef = useRef<HTMLDivElement>(null);
   const searchParams = useSearchParams();
   const router = useRouter();
   const thisPathname = usePathname();
   const photoId = searchParams?.get("photoId");
-  let index = Number(photoId);
+  const index = Number(photoId);
 
   const [direction, setDirection] = useState(0);
   const [curIndex, setCurIndex] = useState(index);
 
+  const isRightPressed = useKeyPress("ArrowRight");
+  const isLeftPressed = useKeyPress("ArrowLeft");
+
+  useEffect(() => {
+    if (isRightPressed && index + 1 < images.length) {
+      changePhotoId(index + 1);
+    }
+    if (isLeftPressed && index > 0) {
+      changePhotoId(index - 1);
+    }
+  }, [isRightPressed, isLeftPressed]);
+
   function handleClose() {
-    onClose && onClose();
+    return onClose?.();
   }
 
   function changePhotoId(newVal: number) {
@@ -41,27 +47,9 @@ export default function Modal({
     router.push(`${thisPathname}/?${getNewParam({ value: newVal })}` as Route);
   }
 
-  useKeypress("ArrowRight", () => {
-    if (index + 1 < images.length) {
-      changePhotoId(index + 1);
-    }
-  });
-
-  useKeypress("ArrowLeft", () => {
-    if (index > 0) {
-      changePhotoId(index - 1);
-    }
-  });
-
   return (
     <>
-      <Dialog
-        static
-        open={true}
-        onClose={handleClose}
-        initialFocus={overlayRef}
-        className="fixed inset-0 z-50 flex items-center justify-center "
-      >
+      <Dialog static open={true} onClose={handleClose} initialFocus={overlayRef} className="fixed inset-0 z-50 flex items-center justify-center ">
         <motion.div
           ref={overlayRef}
           key="backdrop"
@@ -70,14 +58,7 @@ export default function Modal({
           animate={{ opacity: 1 }}
           onClick={handleClose}
         />
-        <SharedModal
-          index={curIndex}
-          direction={direction}
-          images={images}
-          changePhotoId={changePhotoId}
-          closeModal={handleClose}
-          navigation={true}
-        />
+        <SharedModal index={curIndex} direction={direction} images={images} changePhotoId={changePhotoId} closeModal={handleClose} navigation={true} />
       </Dialog>
     </>
   );
