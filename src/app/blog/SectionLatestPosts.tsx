@@ -13,6 +13,7 @@ export interface SectionLatestPostsProps {
 }
 
 const SectionLatestPosts: FC<SectionLatestPostsProps> = ({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   postCardName = "card3",
   className = "",
 }) => {

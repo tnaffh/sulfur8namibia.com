@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import Card12 from "./Card12";
 import Card13 from "./Card13";
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface SectionMagazine5Props {}
 
 const SectionMagazine5: FC<SectionMagazine5Props> = () => {

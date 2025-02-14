@@ -11,10 +11,7 @@ const checkInViewIntersectionObserver = ({
   callback,
   freezeOnceVisible = false,
 }: InviewPortType) => {
-  const _funCallback: IntersectionObserverCallback = (
-    entries: IntersectionObserverEntry[],
-    observer: IntersectionObserver
-  ) => {
+  const _funCallback: IntersectionObserverCallback = (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
     entries.map((entry: IntersectionObserverEntry) => {
       if (entry.isIntersecting) {
         //
@@ -30,13 +27,12 @@ const checkInViewIntersectionObserver = ({
 
   // _checkBrowserSupport-----
   if (typeof window.IntersectionObserver === "undefined") {
-    console.error(
-      "window.IntersectionObserver === undefined! => Your Browser is Notsupport"
-    );
+    console.error("window.IntersectionObserver === undefined! => Your Browser is Notsupport");
     return;
   }
 
   const observer = new IntersectionObserver(_funCallback, options);
+  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
   target && observer.observe(target);
 };
 
