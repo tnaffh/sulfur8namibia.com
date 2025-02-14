@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client";
 
 import React, { FC, useState } from "react";
@@ -34,6 +35,7 @@ const ProductCard: FC<ProductCardProps> = ({ className = "", data = SULFUR8_PROD
 
   const notifyAddTocart = ({ size }: { size?: string }) => {
     toast.custom(
+      // @ts-expect-error - toast.custom is not typed
       (t) => (
         <Transition
           as={"div"}

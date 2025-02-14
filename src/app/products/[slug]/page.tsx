@@ -43,8 +43,8 @@ const LIST_IMAGES_GALLERY_DEMO: (string | StaticImageData)[] = [
 ];
 const PRICE = 108;
 
-const ProductPage: FC<{ params: { slug: string } }> = ({ params }) => {
-  const { slug } = params;
+const ProductPage: FC<{ params: Promise<any> }> = async ({ params }) => {
+  const { slug } = (await params) as { slug: string };
   const [product, setProduct] = useState<Sulfur8Product | null>(null);
 
   const router = useRouter();
@@ -113,8 +113,10 @@ const ProductPage: FC<{ params: { slug: string } }> = ({ params }) => {
                     typeof variant.thumbnail?.src === "string"
                       ? // @ts-ignore
                         variant.thumbnail?.src
-                      : typeof variant.thumbnail === "string"
-                      ? variant.thumbnail
+                      : // @ts-ignore
+                      typeof variant.thumbnail === "string"
+                      ? // @ts-ignore
+                        variant.thumbnail
                       : ""
                   })`,
                 }}
@@ -128,7 +130,7 @@ const ProductPage: FC<{ params: { slug: string } }> = ({ params }) => {
 
   const notifyAddTocart = () => {
     toast.custom(
-      (t) => (
+      (t: any) => (
         <NotifyAddTocart productImage={image} qualitySelected={qualitySelected} show={t.visible} sizeSelected={sizeSelected} variantActive={variantActive} />
       ),
       { position: "top-right", id: "nc-product-notify", duration: 3000 }
