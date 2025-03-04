@@ -53,9 +53,5 @@ jobs:
             --restart unless-stopped \
             sulfur8namibia.com"
 
-          # Configure Plesk Apache proxy
-          VHOST_CONF='<IfModule mod_proxy.c>\n    ProxyPass / http://127.0.0.1:3000/\n    ProxyPassReverse / http://127.0.0.1:3000/\n</IfModule>'
-          ssh $SSH_USER@$SSH_HOST "sudo bash -c 'echo -e \"$VHOST_CONF\" > /var/www/vhosts/sulfur8namibia/system/sulfur8namibia.com/conf/vhost.conf'"
-
           # Restart Apache
           ssh $SSH_USER@$SSH_HOST "sudo plesk repair web"
