@@ -40,9 +40,22 @@ jobs:
           # Copy and load new image
           docker save sulfur8namibia.com | ssh $SSH_USER@$SSH_HOST "sudo docker load"
 
-          # Run new container
+          # Create docker network if it doesn't exist
+          ssh $SSH_USER@$SSH_HOST "sudo docker network create plesk-network || true"
+
+          # Run new container with network configuration
           ssh $SSH_USER@$SSH_HOST "sudo docker run -d \
             --name sulfur8namibia.com \
-            -p 3000:3000 \
+            --network plesk-network \
+            -p 127.0.0.1:3000:3000 \
             -e NODE_ENV=production \
+            -e VIRTUAL_HOST=sulfur8namibia.com \
+            --restart unless-stopped \
             sulfur8namibia.com"
+
+          # Configure Plesk Apache proxy
+          VHOST_CONF='<IfModule mod_proxy.c>\n    ProxyPass / http://127.0.0.1:3000/\n    ProxyPassReverse / http://127.0.0.1:3000/\n</IfModule>'
+          ssh $SSH_USER@$SSH_HOST "sudo bash -c 'echo -e \"$VHOST_CONF\" > /var/www/vhosts/sulfur8namibia/system/sulfur8namibia.com/conf/vhost.conf'"
+
+          # Restart Apache
+          ssh $SSH_USER@$SSH_HOST "sudo plesk repair web"
