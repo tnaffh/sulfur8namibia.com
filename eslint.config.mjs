@@ -10,8 +10,30 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
-  // TODO: temporarily disabled next/core-web-vitals and next/typescript
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
+  ...compat.config({
+    extends: ["next/core-web-vitals", "next/typescript"],
+    parserOptions: {
+      project: "./tsconfig.json",
+      tsconfigRootDir: __dirname,
+    },
+    rules: {
+      "@typescript-eslint/no-unused-vars": "warn",
+      "prefer-const": "warn",
+      "@typescript-eslint/no-unused-expressions": "warn",
+      "@typescript-eslint/no-unsafe-function-type": "warn",
+      "@typescript-eslint/no-empty-object-type": "warn",
+      "@typescript-eslint/no-unsafe-member-access": "off",
+      "@typescript-eslint/no-unsafe-assignment": "off",
+      "@typescript-eslint/no-explicit-any": "warn",
+      "react-hooks/rules-of-hooks": "warn",
+      "react-hooks/exhaustive-deps": "warn",
+      "@typescript-eslint/no-unused-expressions": "warn",
+      "@typescript-eslint/no-unsafe-call": "warn",
+      "@typescript-eslint/no-unsafe-argument": "off",
+      "@typescript-eslint/no-unsafe-return": "off",
+      "@typescript-eslint/ban-ts-comment": "off",
+    },
+  }),
 ];
 
 export default eslintConfig;

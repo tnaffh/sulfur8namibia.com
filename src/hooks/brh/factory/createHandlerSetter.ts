@@ -1,5 +1,6 @@
-import { type RefObject, useRef } from 'react'
-import { type CallbackSetter, type SomeCallback } from '../shared/types'
+/* eslint-disable react-hooks/rules-of-hooks */
+import { type RefObject, useRef } from "react";
+import { type CallbackSetter, type SomeCallback } from "../shared/types";
 
 /**
  * Returns an array where the first item is the [ref](https://reactjs.org/docs/hooks-reference.html#useref) to a
@@ -13,17 +14,17 @@ import { type CallbackSetter, type SomeCallback } from '../shared/types'
  * Don't use this function to abstract hooks outside this library as it changes quite often
  */
 const createHandlerSetter = <TArgs, TResult = void>(callback?: SomeCallback<TArgs, TResult>) => {
-  const handlerRef = useRef(callback)
+  const handlerRef = useRef(callback);
 
   const setHandler = useRef((nextCallback: SomeCallback<TArgs, TResult>) => {
-    if (typeof nextCallback !== 'function') {
-      throw new Error('the argument supplied to the \'setHandler\' function should be of type function')
+    if (typeof nextCallback !== "function") {
+      throw new Error("the argument supplied to the 'setHandler' function should be of type function");
     }
 
-    handlerRef.current = nextCallback
-  })
+    handlerRef.current = nextCallback;
+  });
 
-  return [handlerRef, setHandler.current] as [RefObject<SomeCallback<TArgs, TResult>>, CallbackSetter<TArgs>]
-}
+  return [handlerRef, setHandler.current] as [RefObject<SomeCallback<TArgs, TResult>>, CallbackSetter<TArgs>];
+};
 
-export default createHandlerSetter
+export default createHandlerSetter;
