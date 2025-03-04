@@ -31,18 +31,18 @@ jobs:
           SSH_USER: ${{ secrets.SSH_USER }}
         run: |
           # Stop existing container if exists
-          ssh $SSH_USER@$SSH_HOST "docker stop my-nextjs-app || true"
-          ssh $SSH_USER@$SSH_HOST "docker rm my-nextjs-app || true"
+          ssh $SSH_USER@$SSH_HOST "sudo docker stop sulfur8namibia.com || true"
+          ssh $SSH_USER@$SSH_HOST "sudo docker rm sulfur8namibia.com || true"
 
           # Remove old image
-          ssh $SSH_USER@$SSH_HOST "docker rmi my-nextjs-app || true"
+          ssh $SSH_USER@$SSH_HOST "sudo docker rmi sulfur8namibia.com || true"
 
           # Copy and load new image
-          docker save my-nextjs-app | ssh $SSH_USER@$SSH_HOST "docker load"
+          docker save sulfur8namibia.com | ssh $SSH_USER@$SSH_HOST "sudo docker load"
 
           # Run new container
-          ssh $SSH_USER@$SSH_HOST "docker run -d \
-            --name my-nextjs-app \
+          ssh $SSH_USER@$SSH_HOST "sudo docker run -d \
+            --name sulfur8namibia.com \
             -p 3000:3000 \
             -e NODE_ENV=production \
-            my-nextjs-app"
+            sulfur8namibia.com"
