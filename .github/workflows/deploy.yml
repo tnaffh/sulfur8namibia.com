@@ -43,15 +43,12 @@ jobs:
           # Create docker network if it doesn't exist
           ssh $SSH_USER@$SSH_HOST "sudo docker network create plesk-network || true"
 
-          # Run new container with network configuration
+          # Run new container (no explicit host port mapping, no custom network)
           ssh $SSH_USER@$SSH_HOST "sudo docker run -d \
             --name sulfur8namibia.com \
-            --network plesk-network \
-            -p 127.0.0.1:3000:3000 \
             -e NODE_ENV=production \
-            -e VIRTUAL_HOST=sulfur8namibia.com \
             --restart unless-stopped \
             sulfur8namibia.com"
 
-          # Restart Apache
+          # Restart Apache (triggers Plesk reconfiguration)
           ssh $SSH_USER@$SSH_HOST "sudo plesk repair web"
