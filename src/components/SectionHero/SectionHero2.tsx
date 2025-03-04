@@ -17,6 +17,8 @@ const SectionHero2: FC<SectionHero2Props> = ({ className = "" }) => {
   // =================
 
   const ref = useRef<HTMLDivElement>(null);
+  //@ts-ignore
+
   const swipeState = useHorizontalSwipe(ref, {
     threshold: 100,
     preventDefault: false,

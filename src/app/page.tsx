@@ -16,6 +16,7 @@ import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import { PRODUCTS, SPORT_PRODUCTS } from "@/data/data";
 import SectionGridFeatureItems from "@/components/SectionGridFeatureItems";
 import SectionMagazine5 from "@/app/blog/SectionMagazine5";
+import { SULFUR8_PRODUCTS } from "./products/data";
 
 function PageHome() {
   return (
@@ -27,30 +28,21 @@ function PageHome() {
       </div>
 
       <div className="container relative space-y-24 my-24 lg:space-y-32 lg:my-32">
-        <SectionSliderProductCard data={[PRODUCTS[4], SPORT_PRODUCTS[5], PRODUCTS[7], SPORT_PRODUCTS[1], PRODUCTS[6]]} />
-
+        <SectionSliderProductCard data={[SULFUR8_PRODUCTS[4], SULFUR8_PRODUCTS[5], SULFUR8_PRODUCTS[10], SULFUR8_PRODUCTS[1], SULFUR8_PRODUCTS[6]]} />
         <div className="py-24 lg:py-32 border-t border-b border-slate-200 dark:border-slate-700">
           <SectionHowItWork />
         </div>
         <SectionPromo1 />
-
         <div className="relative py-24 lg:py-32">
           <BackgroundSection />
           <SectionGridMoreExplore />
         </div>
-
         <SectionSliderProductCard heading="Best Sellers" subHeading="Best selling of the month" />
-
         <SectionPromo2 />
-
         <SectionSliderLargeProduct cardStyle="style2" />
-
         <SectionSliderCategories />
-
         <SectionPromo3 />
-
         <SectionGridFeatureItems />
-
         <div className="relative py-24 lg:py-32">
           <BackgroundSection />
           <div>

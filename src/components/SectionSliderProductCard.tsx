@@ -5,7 +5,8 @@ import Heading from "@/components/Heading/Heading";
 // @ts-ignore
 import Glide from "@glidejs/glide/dist/glide.esm";
 import ProductCard from "./ProductCard";
-import { Product, PRODUCTS } from "@/data/data";
+import { SULFUR8_PRODUCTS } from "@/app/products/data";
+import { Sulfur8Product } from "@/app/products/types";
 
 export interface SectionSliderProductCardProps {
   className?: string;
@@ -14,7 +15,7 @@ export interface SectionSliderProductCardProps {
   headingFontClassName?: string;
   headingClassName?: string;
   subHeading?: string;
-  data?: Product[];
+  data?: Sulfur8Product[];
 }
 
 const SectionSliderProductCard: FC<SectionSliderProductCardProps> = ({
@@ -24,7 +25,7 @@ const SectionSliderProductCard: FC<SectionSliderProductCardProps> = ({
   headingClassName,
   heading,
   subHeading = "REY backpacks & bags",
-  data = PRODUCTS.filter((_, i) => i < 8 && i > 2),
+  data = SULFUR8_PRODUCTS.filter((_, i) => i < 8 && i > 2),
 }) => {
   const sliderRef = useRef(null);
 
@@ -61,7 +62,7 @@ const SectionSliderProductCard: FC<SectionSliderProductCardProps> = ({
     };
     if (!sliderRef.current) return;
 
-    let slider = new Glide(sliderRef.current, OPTIONS);
+    const slider = new Glide(sliderRef.current, OPTIONS);
     slider.mount();
     setIsShow(true);
     return () => {
@@ -72,12 +73,7 @@ const SectionSliderProductCard: FC<SectionSliderProductCardProps> = ({
   return (
     <div className={`nc-SectionSliderProductCard ${className}`}>
       <div ref={sliderRef} className={`flow-root ${isShow ? "" : "invisible"}`}>
-        <Heading
-          className={headingClassName}
-          fontClass={headingFontClassName}
-          rightDescText={subHeading}
-          hasNextPrev
-        >
+        <Heading className={headingClassName} fontClass={headingFontClassName} rightDescText={subHeading} hasNextPrev>
           {heading || `New Arrivals`}
         </Heading>
         <div className="glide__track" data-glide-el="track">

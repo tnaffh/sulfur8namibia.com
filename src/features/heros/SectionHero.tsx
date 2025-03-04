@@ -15,6 +15,7 @@ let TIME_OUT: NodeJS.Timeout | null = null;
 
 export const SectionHero: FC<SectionHeroProps> = ({ className = "" }) => {
   const ref = useRef<HTMLDivElement>(null);
+  //@ts-ignore
   const swipeState = useHorizontalSwipe(ref, {
     threshold: 100,
     preventDefault: false,

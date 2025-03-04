@@ -1,12 +1,12 @@
-import { useEffect, useMemo, useRef } from 'react'
-import createHandlerSetter from './factory/createHandlerSetter'
-import { geoStandardOptions } from './shared/geolocationUtils'
-import { type BRHGeolocationPosition, type BRHGeolocationPositionError } from './shared/types'
+import { useEffect, useMemo, useRef } from "react";
+import createHandlerSetter from "./factory/createHandlerSetter";
+import { geoStandardOptions } from "./shared/geolocationUtils";
+import { type BRHGeolocationPosition, type BRHGeolocationPositionError } from "./shared/types";
 
 export interface UseGeolocationEventsResult {
-  isSupported: boolean
-  onChange: (callback: (position: BRHGeolocationPosition) => void) => void
-  onError: (callback: (error: BRHGeolocationPositionError) => void) => void
+  isSupported: boolean;
+  onChange: (callback: (position: BRHGeolocationPosition) => void) => void;
+  onError: (callback: (error: BRHGeolocationPositionError) => void) => void;
 }
 
 /**
@@ -16,43 +16,43 @@ export interface UseGeolocationEventsResult {
  * The returned object also contains the `isSupported` boolean flag reporting whether the geolocation API is supported.
  */
 const useGeolocationEvents = (options: PositionOptions = geoStandardOptions) => {
-  const watchId = useRef<number>()
-  const [onChangeRef, setOnChangeRef] = createHandlerSetter<BRHGeolocationPosition>()
-  const [onErrorRef, setOnErrorRef] = createHandlerSetter<BRHGeolocationPositionError>()
-  const isSupported = useMemo(() => typeof window !== 'undefined' && 'geolocation' in window.navigator, [])
+  const watchId = useRef<number | null>(null);
+  const [onChangeRef, setOnChangeRef] = createHandlerSetter<BRHGeolocationPosition>();
+  const [onErrorRef, setOnErrorRef] = createHandlerSetter<BRHGeolocationPositionError>();
+  const isSupported = useMemo(() => typeof window !== "undefined" && "geolocation" in window.navigator, []);
 
   if (!isSupported) {
-    throw new Error('The Geolocation API is not supported')
+    throw new Error("The Geolocation API is not supported");
   }
 
   useEffect(() => {
     const onSuccess = (successEvent: BRHGeolocationPosition) => {
       if (onChangeRef.current) {
-        onChangeRef.current(successEvent)
+        onChangeRef.current(successEvent);
       }
-    }
+    };
     const onError = (err: BRHGeolocationPositionError) => {
       if (onErrorRef.current) {
-        onErrorRef.current(err)
+        onErrorRef.current(err);
       }
-    }
+    };
 
     if (isSupported) {
-      watchId.current = window.navigator.geolocation.watchPosition(onSuccess, onError, options)
+      watchId.current = window.navigator.geolocation.watchPosition(onSuccess, onError, options);
     }
 
     return () => {
       if (isSupported && watchId.current) {
-        window.navigator.geolocation.clearWatch(watchId.current)
+        window.navigator.geolocation.clearWatch(watchId.current);
       }
-    }
-  }, [])
+    };
+  }, []);
 
   return Object.freeze<UseGeolocationEventsResult>({
     isSupported,
     onChange: setOnChangeRef,
-    onError: setOnErrorRef
-  })
-}
+    onError: setOnErrorRef,
+  });
+};
 
-export default useGeolocationEvents
+export default useGeolocationEvents;

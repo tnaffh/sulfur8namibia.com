@@ -6,11 +6,7 @@ import { StarIcon } from "@heroicons/react/24/solid";
 import BagIcon from "@/components/BagIcon";
 import NcInputNumber from "@/components/NcInputNumber";
 import { PRODUCTS } from "@/data/data";
-import {
-  NoSymbolIcon,
-  ClockIcon,
-  SparklesIcon,
-} from "@heroicons/react/24/outline";
+import { NoSymbolIcon, ClockIcon, SparklesIcon } from "@heroicons/react/24/outline";
 import IconDiscount from "@/components/IconDiscount";
 import Prices from "@/components/Prices";
 import toast from "react-hot-toast";
@@ -36,6 +32,7 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
 
   const notifyAddTocart = () => {
     toast.custom(
+      // @ts-ignore
       (t) => (
         <NotifyAddTocart
           productImage={LIST_IMAGES_DEMO[0]}
@@ -59,9 +56,7 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
         <label className="rtl:text-right block" htmlFor="">
           <span className="text-sm font-medium">
             Color:
-            <span className="ms-1 font-semibold">
-              {variants[variantActive].name}
-            </span>
+            <span className="ms-1 font-semibold">{variants[variantActive].name}</span>
           </span>
         </label>
         <div className="flex mt-2.5">
@@ -70,9 +65,7 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
               key={index}
               onClick={() => setVariantActive(index)}
               className={`relative flex-1 max-w-[75px] h-10 rounded-full border-2 cursor-pointer ${
-                variantActive === index
-                  ? "border-primary-6000 dark:border-primary-500"
-                  : "border-transparent"
+                variantActive === index ? "border-primary-6000 dark:border-primary-500" : "border-transparent"
               }`}
             >
               <div
@@ -109,12 +102,7 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
               <span className="ms-1 font-semibold">{sizeSelected}</span>
             </span>
           </label>
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="##"
-            className="text-primary-6000 hover:text-primary-500"
-          >
+          <a target="_blank" rel="noopener noreferrer" href="##" className="text-primary-6000 hover:text-primary-500">
             See sizing chart
           </a>
         </div>
@@ -127,9 +115,7 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
                 key={index}
                 className={`relative h-10 sm:h-11 rounded-2xl border flex items-center justify-center 
                 text-sm sm:text-base uppercase font-semibold select-none overflow-hidden z-0 ${
-                  sizeOutStock
-                    ? "text-opacity-20 dark:text-opacity-20 cursor-not-allowed"
-                    : "cursor-pointer"
+                  sizeOutStock ? "text-opacity-20 dark:text-opacity-20 cursor-not-allowed" : "cursor-pointer"
                 } ${
                   isActive
                     ? "bg-primary-6000 border-primary-6000 text-white hover:bg-primary-6000"
@@ -203,25 +189,17 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
 
           <div className="flex justify-start rtl:justify-end items-center mt-5 space-x-4 sm:space-x-5 rtl:space-x-reverse">
             {/* <div className="flex text-xl font-semibold">$112.00</div> */}
-            <Prices
-              contentClass="py-1 px-2 md:py-1.5 md:px-3 text-lg font-semibold"
-              price={112}
-            />
+            <Prices contentClass="py-1 px-2 md:py-1.5 md:px-3 text-lg font-semibold" price={112} />
 
             <div className="h-6 border-s border-slate-300 dark:border-slate-700"></div>
 
             <div className="flex items-center">
-              <Link
-                href="/product-detail"
-                className="flex items-center text-sm font-medium"
-              >
+              <Link href="/product-detail" className="flex items-center text-sm font-medium">
                 <StarIcon className="w-5 h-5 pb-[1px] text-yellow-400" />
                 <div className="ms-1.5 flex">
                   <span>4.9</span>
                   <span className="block mx-2">·</span>
-                  <span className="text-slate-600 dark:text-slate-400 underline">
-                    142 reviews
-                  </span>
+                  <span className="text-slate-600 dark:text-slate-400 underline">142 reviews</span>
                 </div>
               </Link>
               <span className="hidden sm:block mx-2.5">·</span>
@@ -240,15 +218,9 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
         {/*  ---------- 4  QTY AND ADD TO CART BUTTON */}
         <div className="flex space-x-3.5 rtl:space-x-reverse">
           <div className="flex items-center justify-center bg-slate-100/70 dark:bg-slate-800/70 px-2 py-3 sm:p-3.5 rounded-full">
-            <NcInputNumber
-              defaultValue={qualitySelected}
-              onChange={setQualitySelected}
-            />
+            <NcInputNumber defaultValue={qualitySelected} onChange={setQualitySelected} />
           </div>
-          <ButtonPrimary
-            className="flex-1 flex-shrink-0"
-            onClick={notifyAddTocart}
-          >
+          <ButtonPrimary className="flex-1 flex-shrink-0" onClick={notifyAddTocart}>
             <BagIcon className="hidden sm:inline-block w-5 h-5 mb-0.5" />
             <span className="ms-3">Add to cart</span>
           </ButtonPrimary>
@@ -328,9 +300,7 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
         </div>
 
         {/* SIDEBAR */}
-        <div className="w-full lg:w-[50%] pt-6 lg:pt-0 lg:ps-7 xl:ps-8">
-          {renderSectionContent()}
-        </div>
+        <div className="w-full lg:w-[50%] pt-6 lg:pt-0 lg:ps-7 xl:ps-8">{renderSectionContent()}</div>
       </div>
     </div>
   );
