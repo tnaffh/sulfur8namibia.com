@@ -242,7 +242,7 @@ const ProductPage: FC<{ params: { slug: string } }> = ({ params }) => {
           <div className="">
             {/* ---------- 1 HEADING ----------  */}
             <div className="flex items-center justify-between space-x-5">
-              <div className="flex text-2xl font-semibold">${PRICE.toFixed(2)}</div>
+              <div className="flex text-2xl font-semibold">${product.price.toFixed(2)}</div>
 
               <a href="#reviews" className="flex items-center text-sm font-medium">
                 <div className="">
@@ -278,12 +278,12 @@ const ProductPage: FC<{ params: { slug: string } }> = ({ params }) => {
             <div className="space-y-2.5">
               <div className="flex justify-between text-slate-600 dark:text-slate-300">
                 <span className="flex">
-                  <span>{`$${PRICE.toFixed(2)}  `}</span>
+                  <span>{`$${product.price.toFixed(2)}  `}</span>
                   <span className="mx-2">x</span>
                   <span>{`${qualitySelected} `}</span>
                 </span>
 
-                <span>{`$${(PRICE * qualitySelected).toFixed(2)}`}</span>
+                <span>{`$${(product.price * qualitySelected).toFixed(2)}`}</span>
               </div>
               <div className="flex justify-between text-slate-600 dark:text-slate-300">
                 <span>Tax estimate</span>
@@ -293,7 +293,7 @@ const ProductPage: FC<{ params: { slug: string } }> = ({ params }) => {
             <div className="border-b border-slate-200 dark:border-slate-700"></div>
             <div className="flex justify-between font-semibold">
               <span>Total</span>
-              <span>{`$${(PRICE * qualitySelected).toFixed(2)}`}</span>
+              <span>{`$${(product.price * qualitySelected).toFixed(2)}`}</span>
             </div>
           </div>
         </div>
