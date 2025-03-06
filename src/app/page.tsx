@@ -32,17 +32,17 @@ function PageHome() {
           <SectionHowItWork />
         </div>
         <SectionPromo1 />
-        <div className="relative py-24 lg:py-32">
+        {/* <div className="relative py-24 lg:py-32">
           <BackgroundSection />
           <SectionGridMoreExplore />
-        </div>
+        </div> */}
         <SectionSliderProductCard heading="Best Sellers" subHeading="Best selling of the month" />
         <SectionPromo2 />
-        <SectionSliderLargeProduct cardStyle="style2" />
+        {/* <SectionSliderLargeProduct cardStyle="style2" /> */}
         <SectionSliderCategories />
         <SectionPromo3 />
-        <SectionGridFeatureItems />
-        <div className="relative py-24 lg:py-32">
+        {/* <SectionGridFeatureItems /> */}
+        {/* <div className="relative py-24 lg:py-32">
           <BackgroundSection />
           <div>
             <Heading rightDescText="From the Ciseco blog">The latest news</Heading>
@@ -51,7 +51,7 @@ function PageHome() {
               <ButtonSecondary>Show all blog articles</ButtonSecondary>
             </div>
           </div>
-        </div>
+        </div> */}
         <SectionClientSay />
       </div>
     </div>

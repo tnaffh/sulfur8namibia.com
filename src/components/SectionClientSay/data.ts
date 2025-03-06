@@ -3,18 +3,18 @@ export const DEMO_DATA = [
     id: 1,
     clientName: "Tiana Abie",
     content:
-      "Great quality products, affordable prices, fast and friendly delivery. I very recommend.",
+      "I have been using Sulfur8® products for a few years now and I am very satisfied with the results. The products are effective and the customer service is excellent.",
   },
   {
     id: 2,
     clientName: "Lennie Swiffan",
     content:
-      "Great quality products, affordable prices, fast and friendly delivery. I very recommend.",
+      "I have been using Sulfur8® products for a few years now and I am very satisfied with the results. The products are effective and the customer service is excellent.",
   },
   {
     id: 3,
     clientName: "Berta Emili",
     content:
-      "Great quality products, affordable prices, fast and friendly delivery. I very recommend.",
+      "I have been using Sulfur8® products for a few years now and I am very satisfied with the results. The products are effective and the customer service is excellent.",
   },
 ];
