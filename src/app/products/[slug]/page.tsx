@@ -17,16 +17,17 @@ import toast from "react-hot-toast";
 import { StarIcon } from "@heroicons/react/24/solid";
 import SectionSliderProductCard from "@/components/SectionSliderProductCard";
 import NotifyAddTocart from "@/components/NotifyAddTocart";
-import Image, { StaticImageData } from "next/image";
+import { StaticImageData } from "next/image";
 import LikeSaveBtns from "@/components/LikeSaveBtns";
 import AccordionInfo from "@/components/AccordionInfo";
 import Policy from "./Policy";
 import ModalViewAllReviews from "./ModalViewAllReviews";
 import ListingImageGallery from "@/components/listing-image-gallery/ListingImageGallery";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Route } from "next";
 import { SULFUR8_PRODUCTS } from "../data";
 import { Sulfur8Product } from "../types";
+import { ProductDetailAccordion } from "./ProductDetailAccordion";
 
 const LIST_IMAGES_GALLERY_DEMO: (string | StaticImageData)[] = [
   detail21JPG,
@@ -43,8 +44,8 @@ const LIST_IMAGES_GALLERY_DEMO: (string | StaticImageData)[] = [
 ];
 const PRICE = 108;
 
-const ProductPage: FC<{ params: Promise<any> }> = async ({ params }) => {
-  const { slug } = (await params) as { slug: string };
+const ProductPage: FC<{ params: { slug: string } }> = ({ params }) => {
+  const { slug } = params;
   const [product, setProduct] = useState<Sulfur8Product | null>(null);
 
   const router = useRouter();
@@ -292,6 +293,18 @@ const ProductPage: FC<{ params: Promise<any> }> = async ({ params }) => {
     );
   };
 
+  const getDetailInfoTitle = (key: string) => {
+    switch (key) {
+      case "benefits":
+        return "Benefits";
+      case "howToUse":
+        return "How to use";
+
+      default:
+        return key.charAt(0).toUpperCase() + key.slice(1);
+    }
+  };
+
   const renderSection1 = () => {
     return (
       <div className="listingSection__wrap !space-y-6">
@@ -322,7 +335,11 @@ const ProductPage: FC<{ params: Promise<any> }> = async ({ params }) => {
         {/*  */}
         <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
         {/*  */}
-        <AccordionInfo panelClassName="p-4 pt-3.5 text-slate-600 text-base dark:text-slate-300 leading-7" />
+        <ProductDetailAccordion key={`${product.id}-description`} title={"Description"} content={product.description} defaultOpen={true} />
+        {Object.entries(product.productDetails).map(
+          ([key, content]) =>
+            key !== "descriptionText" && <ProductDetailAccordion key={`${product.id}-${key}`} title={getDetailInfoTitle(key)} content={content} />
+        )}
       </div>
     );
   };
@@ -333,19 +350,14 @@ const ProductPage: FC<{ params: Promise<any> }> = async ({ params }) => {
         <h2 className="text-2xl font-semibold">Product details</h2>
         {/* <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div> */}
         <div className="prose prose-sm sm:prose dark:prose-invert sm:max-w-4xl">
-          <p>
-            The patented eighteen-inch hardwood Arrowhead deck --- finely mortised in, makes this the strongest and most rigid canoe ever built. You cannot buy
-            a canoe that will afford greater satisfaction.
-          </p>
-          <p>
-            The St. Louis Meramec Canoe Company was founded by Alfred Wickett in 1922. Wickett had previously worked for the Old Town Canoe Co from 1900 to
-            1914. Manufacturing of the classic wooden canoes in Valley Park, Missouri ceased in 1978.
-          </p>
+          {product.productDetails.descriptionText.map((item, index) => (
+            <p key={index}>{item}</p>
+          ))}
+          <h3>Benefits</h3>
           <ul>
-            <li>Regular fit, mid-weight t-shirt</li>
-            <li>Natural color, 100% premium combed organic cotton</li>
-            <li>Quality cotton grown without the use of herbicides or pesticides - GOTS certified</li>
-            <li>Soft touch water based printed in the USA</li>
+            {product.productDetails.benefits.map((item, index) => (
+              <li key={index}>{item}</li>
+            ))}
           </ul>
         </div>
         {/* ---------- 6 ----------  */}
@@ -493,10 +505,6 @@ const ProductPage: FC<{ params: Promise<any> }> = async ({ params }) => {
 
       {/* OTHER SECTION */}
       <div className="container pb-24 lg:pb-28 pt-14 space-y-14">
-        <hr className="border-slate-200 dark:border-slate-700" />
-
-        {renderReviews()}
-
         <hr className="border-slate-200 dark:border-slate-700" />
 
         <SectionSliderProductCard

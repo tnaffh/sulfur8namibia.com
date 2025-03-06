@@ -46,6 +46,7 @@ jobs:
           # Run new container (no explicit host port mapping, no custom network)
           ssh $SSH_USER@$SSH_HOST "sudo docker run -d \
             --name sulfur8namibia.com \
+            -p 0.0.0.0:3000:3000 \
             -e NODE_ENV=production \
             --restart unless-stopped \
             sulfur8namibia.com"

@@ -13,7 +13,6 @@ import SectionPromo3 from "@/components/SectionPromo3";
 import SectionClientSay from "@/components/SectionClientSay/SectionClientSay";
 import Heading from "@/components/Heading/Heading";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
-import { PRODUCTS, SPORT_PRODUCTS } from "@/data/data";
 import SectionGridFeatureItems from "@/components/SectionGridFeatureItems";
 import SectionMagazine5 from "@/app/blog/SectionMagazine5";
 import { SULFUR8_PRODUCTS } from "./products/data";

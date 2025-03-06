@@ -12,7 +12,7 @@ export interface Sulfur8Variant {
   image: StaticImageData | string | null;
 }
 
-interface Sulfur8ProductDetails {
+export interface Sulfur8ProductDetails {
   descriptionText: string[];
   benefits: string[];
   howToUse: string[];

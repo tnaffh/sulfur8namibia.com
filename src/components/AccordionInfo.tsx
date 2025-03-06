@@ -1,6 +1,7 @@
 "use client";
 
 import { Disclosure } from "@/app/headlessui";
+import { Sulfur8Product, Sulfur8ProductDetails } from "@/app/products/types";
 import { MinusIcon, PlusIcon } from "@heroicons/react/24/outline";
 import { FC } from "react";
 
@@ -28,8 +29,7 @@ const DEMO_DATA = [
 
   {
     name: "How it Fits",
-    content:
-      "Use this as a guide. Preference is a huge factor — if you're near the top of a size range and/or prefer more coverage, you may want to size up.",
+    content: "Use this as a guide. Preference is a huge factor — if you're near the top of a size range and/or prefer more coverage, you may want to size up.",
   },
   {
     name: "FAQ",
@@ -52,13 +52,11 @@ const DEMO_DATA = [
 
 interface Props {
   panelClassName?: string;
+  details?: Sulfur8ProductDetails;
   data?: typeof DEMO_DATA;
 }
 
-const AccordionInfo: FC<Props> = ({
-  panelClassName = "p-4 pt-3 last:pb-0 text-slate-600 text-sm dark:text-slate-300 leading-6",
-  data = DEMO_DATA,
-}) => {
+const AccordionInfo: FC<Props> = ({ panelClassName = "p-4 pt-3 last:pb-0 text-slate-600 text-sm dark:text-slate-300 leading-6", data = DEMO_DATA }) => {
   return (
     <div className="w-full rounded-2xl space-y-2.5">
       {/* ============ */}
@@ -75,11 +73,7 @@ const AccordionInfo: FC<Props> = ({
                     <MinusIcon className="w-4 h-4 text-slate-600 dark:text-slate-400" />
                   )}
                 </Disclosure.Button>
-                <Disclosure.Panel
-                  className={panelClassName}
-                  as="div"
-                  dangerouslySetInnerHTML={{ __html: item.content }}
-                ></Disclosure.Panel>
+                <Disclosure.Panel className={panelClassName} as="div" dangerouslySetInnerHTML={{ __html: item.content }}></Disclosure.Panel>
               </>
             )}
           </Disclosure>
