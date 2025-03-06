@@ -43,24 +43,14 @@ const LIST_IMAGES_GALLERY_DEMO: (string | StaticImageData)[] = [
   "https://images.pexels.com/photos/2850487/pexels-photo-2850487.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
 ];
 
-const ProductPage: FC<{ params: { slug: string } }> = ({ params }) => {
-  const [slug, setSlug] = useState<string>("");
+const ProductPageClient: FC<{ slug: string }> = ({ slug }) => {
   const [product, setProduct] = useState<Sulfur8Product | null>(null);
-
   const router = useRouter();
   const thisPathname = usePathname();
   const [variantActive, setVariantActive] = useState(0);
   const [sizeSelected, setSizeSelected] = useState("");
   const [qualitySelected, setQualitySelected] = useState(1);
   const [isOpenModalViewAllReviews, setIsOpenModalViewAllReviews] = useState(false);
-
-  useEffect(() => {
-    const initParams = async () => {
-      const resolvedParams = await params;
-      setSlug(resolvedParams.slug);
-    };
-    initParams();
-  }, [params]);
 
   useEffect(() => {
     if (!slug) return;
@@ -539,6 +529,11 @@ const ProductPage: FC<{ params: { slug: string } }> = ({ params }) => {
       </Suspense>
     </div>
   );
+};
+
+const ProductPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
+  const { slug } = await params;
+  return <ProductPageClient slug={slug} />;
 };
 
 export default ProductPage;
