@@ -6,12 +6,21 @@ import "rc-slider/assets/index.css";
 import Footer from "@/shared/Footer/Footer";
 import { SiteHeader } from "@/features/SiteHeader";
 import CommonClient from "./CommonClient";
+import { Metadata } from "next";
 
 const poppins = Poppins({
   subsets: ["latin"],
   display: "swap",
   weight: ["300", "400", "500", "600", "700"],
 });
+
+export const metadata: Metadata = {
+  title: "Sulfur8® Namibia",
+  description: "Sulfur8® Namibia is a brand of anti-dandruff shampoos and conditioners.",
+  icons: {
+    icon: "/favicon.ico",
+  },
+};
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
