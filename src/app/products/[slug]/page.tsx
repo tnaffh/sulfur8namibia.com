@@ -44,8 +44,8 @@ const LIST_IMAGES_GALLERY_DEMO: (string | StaticImageData)[] = [
 ];
 const PRICE = 108;
 
-const ProductPage: FC<{ params: { slug: string } }> = ({ params }) => {
-  const { slug } = params;
+const ProductPage: FC<{ params: Promise<{ slug: string }> }> = async ({ params }) => {
+  const { slug } = await params;
   const [product, setProduct] = useState<Sulfur8Product | null>(null);
 
   const router = useRouter();
