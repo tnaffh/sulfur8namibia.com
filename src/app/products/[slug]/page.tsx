@@ -42,10 +42,9 @@ const LIST_IMAGES_GALLERY_DEMO: (string | StaticImageData)[] = [
   "https://images.pexels.com/photos/871494/pexels-photo-871494.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
   "https://images.pexels.com/photos/2850487/pexels-photo-2850487.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
 ];
-const PRICE = 108;
 
-const ProductPage: FC<{ params: Promise<{ slug: string }> }> = async ({ params }) => {
-  const { slug } = await params;
+const ProductPage: FC<{ params: { slug: string } }> = ({ params }) => {
+  const [slug, setSlug] = useState<string>("");
   const [product, setProduct] = useState<Sulfur8Product | null>(null);
 
   const router = useRouter();
@@ -56,6 +55,15 @@ const ProductPage: FC<{ params: Promise<{ slug: string }> }> = async ({ params }
   const [isOpenModalViewAllReviews, setIsOpenModalViewAllReviews] = useState(false);
 
   useEffect(() => {
+    const initParams = async () => {
+      const resolvedParams = await params;
+      setSlug(resolvedParams.slug);
+    };
+    initParams();
+  }, [params]);
+
+  useEffect(() => {
+    if (!slug) return;
     // slug is like "sulfur8-hair-care-and-styling-products-1", the last part is the id
     const id = slug.split("-").pop();
     const foundProduct = SULFUR8_PRODUCTS.find((product) => product.id === Number(id));
