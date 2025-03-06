@@ -79,8 +79,8 @@ export const MainNav: FC = () => {
               {renderMagnifyingGlassIcon()}
             </button>
           )}
-          <AvatarDropdown />
-          <CartDropdown />
+          {/* <AvatarDropdown />
+          <CartDropdown /> */}
         </div>
       </div>
     );
